@@ -2,16 +2,6 @@
 <html lang="en" dir="ltr">
 <head>
 <script>
-  // Check if this is a Netlify Identity token URL
-  if (window.location.hash && (
-      window.location.hash.indexOf('invite_token=') !== -1 ||
-      window.location.hash.indexOf('recovery_token=') !== -1 ||
-      window.location.hash.indexOf('confirmation_token=') !== -1 ||
-      window.location.hash.indexOf('access_token=') !== -1
-  )) {
-      window.location.replace('/admin/' + window.location.hash);
-  }
-
   if (!localStorage.getItem("alhumam-lang")) {
     localStorage.setItem("alhumam-lang", "en");
   }
@@ -274,7 +264,7 @@
                                 <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M24 4l18 8v12c0 11-8 20-18 24-10-4-18-13-18-24V12l18-8z"/><path d="M24 16l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-6z"/></svg>
                             </div>
                         </div>
-                        <p class="about__vision-desc" data-en="Uncompromising safety, absolute integrity, engineering excellence, and disciplined adherence to delivery milestones — instilling confidence and creating sustainable value across all built assets." data-ar="الالتزام الصارم بالسلامة، والنزاهة المطلقة، والارتقاء بجودة التنفيذ الهندسي، والانضباط في تسليم المشاريع — لنبني الثقة ونرسخ قيمة مستدامة في كل صرح نشيده.">الالتزام الصارم بالسلامة، والنزاهة المطلقة، والارتقاء بجودة التنفيذ الهندسي، والانضباط في تسليم المشاريع — لنبني الثقة ونرسخ قيمة مستدامة في كل صرح نشيده.</p>
+                        <p class="about__vision-desc" data-en="Uncompromising safety, absolute integrity, engineering excellence, and disciplined adherence to delivery milestones — instilling confidence and creating sustainable value across all built assets." data-ar="الالتزام الصارم بالسلامة، والنزاهة المطلقة، والارتقاء بجودة التنفيذ الهندسي، والانضباط في تسليم المشاريع — لنبني الثقة ونرسخ قيمة مستدامة في كل صرح نشيده.">Uncompromising safety, absolute integrity, engineering excellence, and disciplined adherence to delivery milestones — instilling confidence and creating sustainable value across all built assets.</p>
                     </div>
                 </div>
             </div>
@@ -299,21 +289,21 @@
                         <span class="stat-card__plus">+</span>
                         <span class="stat-card__number" data-target="423">0</span>
                     </div>
-                    <div class="stat-card__label" data-en="Affiliated Workforce" data-ar="العمال المنتسبين">العمال المنتسبين</div>
+                    <div class="stat-card__label" data-en="Affiliated Workforce" data-ar="العمال المنتسبين">Affiliated Workforce</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-card__value" dir="ltr">
                         <span class="stat-card__plus">+</span>
                         <span class="stat-card__number" data-target="150">0</span>
                     </div>
-                    <div class="stat-card__label" data-en="Projects Completed" data-ar="المشاريع المنجزة">المشاريع المنجزة</div>
+                    <div class="stat-card__label" data-en="Projects Completed" data-ar="المشاريع المنجزة">Projects Completed</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-card__value" dir="ltr">
                         <span class="stat-card__plus">+</span>
                         <span class="stat-card__number" data-target="15">0</span>
                     </div>
-                    <div class="stat-card__label" data-en="Years of Experience" data-ar="سنوات الخبرة">سنوات الخبرة</div>
+                    <div class="stat-card__label" data-en="Years of Experience" data-ar="سنوات الخبرة">Years of Experience</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-card__value" dir="ltr">
@@ -321,7 +311,7 @@
                         <span class="stat-card__number" data-target="95">0</span>
                         <span class="stat-card__unit" data-en="%" data-ar="%">%</span>
                     </div>
-                    <div class="stat-card__label" data-en="Satisfied Clients" data-ar="عملاء يشعرون بالرضا">عملاء يشعرون بالرضا</div>
+                    <div class="stat-card__label" data-en="Satisfied Clients" data-ar="عملاء يشعرون بالرضا">Satisfied Clients</div>
                 </div>
             </div>
         </div>
@@ -897,26 +887,5 @@
         </svg>
     </button>
     <script src="../script.js?v=13.0"></script>
-    <!-- Netlify Identity Widget for Decap CMS invite / login token handling -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", function(user) {
-          if (!user) {
-            window.netlifyIdentity.on("login", function() {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-        // Automatically open the widget modal if URL contains invite or recovery token
-        if (window.location.hash && (
-            window.location.hash.indexOf('invite_token=') !== -1 ||
-            window.location.hash.indexOf('recovery_token=') !== -1 ||
-            window.location.hash.indexOf('confirmation_token=') !== -1
-        )) {
-            window.netlifyIdentity.open();
-        }
-      }
-    </script>
 </body>
 </html>

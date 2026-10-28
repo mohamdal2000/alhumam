@@ -103,6 +103,30 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Ensure all leaf elements match current active language
+    function syncPageLanguageText() {
+        if (currentLang === "en") {
+            document.querySelectorAll("[data-en]").forEach(el => {
+                if (el.children.length === 0) {
+                    const enText = el.getAttribute("data-en");
+                    if (enText && /[\u0600-\u06FF]/.test(el.textContent.trim())) {
+                        el.textContent = enText;
+                    }
+                }
+            });
+        } else {
+            document.querySelectorAll("[data-ar]").forEach(el => {
+                if (el.children.length === 0) {
+                    const arText = el.getAttribute("data-ar");
+                    if (arText && !/[\u0600-\u06FF]/.test(el.textContent.trim()) && /[a-zA-Z]/.test(el.textContent.trim())) {
+                        el.textContent = arText;
+                    }
+                }
+            });
+        }
+    }
+    syncPageLanguageText();
+
     highlightBrand();
 
     // ========== BRAND HIGHLIGHT ==========

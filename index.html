@@ -2,17 +2,6 @@
 <html lang="ar" dir="rtl">
 <head>
     <script>
-        // Check if this is a Netlify Identity token URL (#invite_token=... or #recovery_token=... or #confirmation_token=...)
-        if (window.location.hash && (
-            window.location.hash.indexOf('invite_token=') !== -1 ||
-            window.location.hash.indexOf('recovery_token=') !== -1 ||
-            window.location.hash.indexOf('confirmation_token=') !== -1 ||
-            window.location.hash.indexOf('access_token=') !== -1
-        )) {
-            // Forward directly to /admin/ preserving the hash token
-            window.location.replace('/admin/' + window.location.hash);
-        }
-
         // Smart language gateway: Default to English unless Arabic is explicitly requested
         (function() {
             var urlParams = new URLSearchParams(window.location.search);

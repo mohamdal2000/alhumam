@@ -5,10 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>لوحة التحكم | شركة الهمام المتقدمة للمقاولات</title>
   <link rel="icon" type="image/x-icon" href="../favicon.ico">
-  <!-- Include Netlify Identity Widget -->
+  <!-- Include Netlify Identity Widget FIRST -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <style>
+    :root {
+      --gold: #c8a45a;
+      --navy: #0d1829;
+    }
+  </style>
+</head>
+<body>
   <script>
-    // Handle redirect after login or invite confirmation
+    // Netlify Identity initialization
     if (window.netlifyIdentity) {
       window.netlifyIdentity.on("init", function(user) {
         if (!user) {
@@ -17,25 +25,8 @@
           });
         }
       });
-      // If token exists in hash, trigger the identity modal immediately
-      if (window.location.hash && (
-          window.location.hash.indexOf('invite_token=') !== -1 ||
-          window.location.hash.indexOf('recovery_token=') !== -1 ||
-          window.location.hash.indexOf('confirmation_token=') !== -1
-      )) {
-          window.netlifyIdentity.open();
-      }
     }
   </script>
-  <style>
-    /* Styling Decap CMS Login / Header to match Al Humam theme */
-    :root {
-      --gold: #c8a45a;
-      --navy: #0d1829;
-    }
-  </style>
-</head>
-<body>
   <!-- Include Decap CMS Script -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
