@@ -1,21 +1,39 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+    <!-- 1. Netlify Identity Widget must be in <head> so it intercepts tokens before anything else -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-        // Smart language gateway: Default to English unless Arabic is explicitly requested
-        (function() {
-            var urlParams = new URLSearchParams(window.location.search);
-            var explicitLang = urlParams.get('lang');
-            if (explicitLang === 'ar') {
-                localStorage.setItem('alhumam-lang', 'ar');
-                return;
+        // If there's an identity token in hash, do not redirect and open identity modal immediately
+        if (window.location.hash && (
+            window.location.hash.indexOf('invite_token=') !== -1 ||
+            window.location.hash.indexOf('recovery_token=') !== -1 ||
+            window.location.hash.indexOf('confirmation_token=') !== -1
+        )) {
+            if (window.netlifyIdentity) {
+                window.netlifyIdentity.on("init", function() {
+                    window.netlifyIdentity.open();
+                });
+                window.netlifyIdentity.on("login", function() {
+                    document.location.href = "/admin/";
+                });
             }
-            var savedLang = localStorage.getItem('alhumam-lang');
-            if (savedLang === 'ar') {
-                return;
-            }
-            window.location.replace('en/index.html');
-        })();
+        } else {
+            // Smart language gateway: Default to English unless Arabic is explicitly requested
+            (function() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var explicitLang = urlParams.get('lang');
+                if (explicitLang === 'ar') {
+                    localStorage.setItem('alhumam-lang', 'ar');
+                    return;
+                }
+                var savedLang = localStorage.getItem('alhumam-lang');
+                if (savedLang === 'ar') {
+                    return;
+                }
+                window.location.replace('en/index.html');
+            })();
+        }
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
