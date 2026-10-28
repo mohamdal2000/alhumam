@@ -1,0 +1,44 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# مسار حفظ الصور
+media_folder: "images/articles"
+public_folder: "../images/articles"
+
+collections:
+  # قسم المركز الإعلامي والأخبار
+  - name: "articles"
+    label: "المقالات والأخبار"
+    folder: "content/articles"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "عنوان المقال بالعربية", name: "title_ar", widget: "string" }
+      - { label: "English Title", name: "title_en", widget: "string" }
+      - { label: "تصنيف المقال بالعربية", name: "category_ar", widget: "select", options: ["مشاريع حكومية", "أخبار هندسية", "استدامة وإنشاء أخضر", "سلامة مهنية", "بنية تحتية"] }
+      - { label: "English Category", name: "category_en", widget: "select", options: ["Government Projects", "Engineering News", "Sustainability & Green", "Safety & HSE", "Infrastructure"] }
+      - { label: "تاريخ النشر", name: "date", widget: "datetime" }
+      - { label: "الصورة البارزة", name: "image", widget: "image" }
+      - { label: "نبذة مختصرة بالعربية", name: "excerpt_ar", widget: "text" }
+      - { label: "English Excerpt", name: "excerpt_en", widget: "text" }
+      - { label: "تفاصيل المقال بالعربية", name: "body_ar", widget: "markdown" }
+      - { label: "English Content", name: "body_en", widget: "markdown" }
+
+  # قسم سجل المشاريع
+  - name: "projects"
+    label: "مشاريعنا"
+    folder: "content/projects"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "اسم المشروع بالعربية", name: "title_ar", widget: "string" }
+      - { label: "Project Name (EN)", name: "title_en", widget: "string" }
+      - { label: "نطاق العمل بالعربية", name: "scope_ar", widget: "string" }
+      - { label: "Scope in English", name: "scope_en", widget: "string" }
+      - { label: "تصنيف المشروع", name: "category", widget: "select", options: ["حكومي", "سكني", "تجاري", "صناعي", "بنية تحتية"] }
+      - { label: "صورة المشروع", name: "image", widget: "image" }
+      - { label: "نبذة مختصرة بالعربية", name: "excerpt_ar", widget: "text" }
+      - { label: "English Excerpt", name: "excerpt_en", widget: "text" }
+      - { label: "المواصفات الفنية بالعربية", name: "body_ar", widget: "markdown" }
+      - { label: "English Specs", name: "body_en", widget: "markdown" }
