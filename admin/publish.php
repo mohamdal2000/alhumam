@@ -384,7 +384,7 @@ try {
 
             $idMatched = (!empty($edit_id) && $itemId === $edit_id) || (!empty($editIdBase) && ($itemId === $editIdBase || $itemFileBase === $editIdBase));
             $fileMatched = (!empty($existing_file) && $itemFile === $existing_file) || (!empty($existingFileBase) && ($itemId === $existingFileBase || $itemFileBase === $existingFileBase));
-            $titleMatched = (!empty($title_ar) && $itemTitleAr === $title_ar) || (!empty($title_en) && strtolower($itemTitleEn) === strtolower($title_en));
+            $titleMatched = (!empty($title_ar) && $itemTitleAr === $title_ar);
 
             if ($idMatched || $fileMatched || ($titleMatched && empty($edit_id))) {
                 $existingItem = $item;

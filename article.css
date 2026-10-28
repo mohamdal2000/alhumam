@@ -365,3 +365,26 @@
         right: 12px;
     }
 }
+
+/* ============ In-Article Hyperlinks ============ */
+.article-body a,
+.article-content a,
+.article-text a,
+.article-link {
+    color: var(--gold, #c8a45a);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: rgba(200, 164, 90, 0.45);
+    font-weight: 600;
+    transition: all 0.25s ease;
+    word-break: break-word;
+}
+
+.article-body a:hover,
+.article-content a:hover,
+.article-text a:hover,
+.article-link:hover {
+    color: #f3d79b;
+    text-decoration-color: var(--gold, #c8a45a);
+    text-shadow: 0 0 10px rgba(200, 164, 90, 0.35);
+}

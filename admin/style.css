@@ -494,3 +494,14 @@ textarea {
     margin-right: 0;
     margin-left: auto;
 }
+
+.toolbar-btn--link {
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.4);
+    background: rgba(56, 189, 248, 0.08);
+}
+
+.toolbar-btn--link:hover {
+    background: #38bdf8;
+    color: #000;
+}

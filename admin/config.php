@@ -86,6 +86,10 @@ function saveContentData($data) {
 /**
  * Deduplicates cards and removes any stray literal '\n' characters inside HTML grids.
  */
+/**
+ * Deduplicates cards by UNIQUE HREF ONLY (never by title to prevent accidental collisions).
+ * Automatically restores baseline articles if accidentally removed.
+ */
 function cleanListingPage($pagePath, $gridClass, $type = 'article') {
     if (!file_exists($pagePath)) return false;
     $html = @file_get_contents($pagePath);
@@ -124,10 +128,10 @@ function cleanListingPage($pagePath, $gridClass, $type = 'article') {
     }
 
     $gridContent = substr($html, $contentStart, $nextSection - $contentStart);
+    $isEnglish = (strpos($pagePath, '/en/') !== false || strpos($pagePath, '\\en\\') !== false);
 
     $cards = array();
     $seenSlugs = array();
-    $seenTitles = array();
 
     if ($type === 'article') {
         preg_match_all('/<article\b[^>]*class=["\x27][^"\x27]*\bmedia-card\b[^"\x27]*["\x27][^>]*>[\s\S]*?<\/article>/iu', $gridContent, $matches);
@@ -136,26 +140,50 @@ function cleanListingPage($pagePath, $gridClass, $type = 'article') {
             preg_match('/href=["\x27]([^"\x27]+)/i', $card, $hm);
             $href = isset($hm[1]) ? $hm[1] : '';
             $slugBase = preg_replace('/\.html$/i', '', basename($href));
-            $slugCore = preg_replace('/-\d{9,}$/', '', $slugBase);
+            $slugKey = strtolower(trim((string)$slugBase));
 
-            preg_match('/<h3\b[^>]*>([\s\S]*?)<\/h3>/i', $card, $tm);
-            $title = trim(strip_tags(isset($tm[1]) ? $tm[1] : ''));
-
-            $slugKey = strtolower(trim((string)$slugCore));
-            $titleKey = strtolower(trim((string)$title));
-
+            // Deduplicate ONLY by href/slugBase! NEVER by title!
             if (!empty($slugKey) && isset($seenSlugs[$slugKey])) {
-                continue; // Skip duplicate card
-            }
-            if (!empty($titleKey) && isset($seenTitles[$titleKey])) {
                 continue; // Skip duplicate card
             }
 
             if (!empty($slugKey)) $seenSlugs[$slugKey] = true;
-            if (!empty($titleKey)) $seenTitles[$titleKey] = true;
-
             $cards[] = trim((string)$card);
         }
+
+        // Ensure baseline article-news-gov is restored if missing
+        if (!isset($seenSlugs['article-news-gov'])) {
+            if ($isEnglish) {
+                $govCard = '<article class="media-card" data-aos="fade-up">' . "\n"
+                    . '                    <div class="media-card__img" style="background-image: url(\'../images/articles/news-gov.jpg\');"></div>' . "\n"
+                    . '                    <div class="media-card__body">' . "\n"
+                    . '                        <h3 class="media-card__title" data-en="New Government Administrative Complex" data-ar="مشروع المجمع الإداري الحكومي الجديد">New Government Administrative Complex</h3>' . "\n"
+                    . '                        <div class="media-card__footer">' . "\n"
+                    . '                            <span class="media-card__date" data-en="February 2026" data-ar="فبراير 2026">February 2026</span>' . "\n"
+                    . '                            <a href="article-news-gov.html" class="media-card__link" data-en="Read More →" data-ar="اقرأ المزيد ←">Read More →</a>' . "\n"
+                    . '                        </div>' . "\n"
+                    . '                    </div>' . "\n"
+                    . '                </article>';
+            } else {
+                $govCard = '<article class="media-card" data-aos="fade-up">' . "\n"
+                    . '                    <div class="media-card__img" style="background-image: url(\'../images/articles/news-gov.jpg\');"></div>' . "\n"
+                    . '                    <div class="media-card__body">' . "\n"
+                    . '                        <h3 class="media-card__title" data-en="New Government Administrative Complex" data-ar="مشروع المجمع الإداري الحكومي الجديد">مشروع المجمع الإداري الحكومي الجديد</h3>' . "\n"
+                    . '                        <div class="media-card__footer">' . "\n"
+                    . '                            <span class="media-card__date" data-en="February 2026" data-ar="فبراير 2026">فبراير 2026</span>' . "\n"
+                    . '                            <a href="article-news-gov.html" class="media-card__link" data-en="Read More →" data-ar="اقرأ المزيد ←">اقرأ المزيد ←</a>' . "\n"
+                    . '                        </div>' . "\n"
+                    . '                    </div>' . "\n"
+                    . '                </article>';
+            }
+            if (count($cards) > 0) {
+                array_splice($cards, 1, 0, array($govCard));
+            } else {
+                $cards[] = $govCard;
+            }
+            $seenSlugs['article-news-gov'] = true;
+        }
+
     } else {
         preg_match_all('/<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b(?!__)[^"\x27]*["\x27][^>]*>[\s\S]*?<\/div>\s*<\/div>\s*<\/div>/iu', $gridContent, $matches);
         $rawCards = isset($matches[0]) ? $matches[0] : array();
@@ -163,24 +191,13 @@ function cleanListingPage($pagePath, $gridClass, $type = 'article') {
             preg_match('/href=["\x27]([^"\x27]+)/i', $card, $hm);
             $href = isset($hm[1]) ? $hm[1] : '';
             $slugBase = preg_replace('/\.html$/i', '', basename($href));
-            $slugCore = preg_replace('/-\d{9,}$/', '', $slugBase);
-
-            preg_match('/<h3\b[^>]*>([\s\S]*?)<\/h3>/i', $card, $tm);
-            $title = trim(strip_tags(isset($tm[1]) ? $tm[1] : ''));
-
-            $slugKey = strtolower(trim((string)$slugCore));
-            $titleKey = strtolower(trim((string)$title));
+            $slugKey = strtolower(trim((string)$slugBase));
 
             if (!empty($slugKey) && isset($seenSlugs[$slugKey])) {
                 continue;
             }
-            if (!empty($titleKey) && isset($seenTitles[$titleKey])) {
-                continue;
-            }
 
             if (!empty($slugKey)) $seenSlugs[$slugKey] = true;
-            if (!empty($titleKey)) $seenTitles[$titleKey] = true;
-
             $cards[] = trim((string)$card);
         }
     }

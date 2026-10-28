@@ -279,6 +279,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_ar_media', '<strong>', '</strong>', 'نص عريض')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
                                         <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_ar_media', '<span class="gold-text">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_ar_media')" title="إدراج رابط تشعبي (Hyperlink)">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -302,7 +303,7 @@ $is_editing = !empty($edit_item);
                         <div class="form-grid">
                             <div class="form-group full-width">
                                 <label>العنوان بالإنجليزية (English Title) *</label>
-                                <input type="text" name="title_en" value="<?= htmlspecialchars($edit_item['title_en'] ?? '') ?>" placeholder="e.g. New Government Administrative Complex Contract Signing" required>
+                                <input type="text" name="title_en" value="<?= htmlspecialchars($edit_item['title_en'] ?? '') ?>" placeholder="e.g. Al Humam Signs Major Project Contract" required>
                             </div>
                             <div class="form-group">
                                 <label>التصنيف بالإنجليزية (English Category)</label>
@@ -338,6 +339,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_en_media', '<strong>', '</strong>', 'Bold text')" title="Bold text"><strong>B Bold</strong></button>
                                         <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_en_media', '<span class="gold-text">', '</span>', 'Golden accent text')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_en_media')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -479,6 +481,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_ar_proj', '<strong>', '</strong>', 'مواصفة تقنية بارزة')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
                                         <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_ar_proj', '<span class="gold-text">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_ar_proj')" title="إدراج رابط تشعبي (Hyperlink)">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -534,6 +537,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_en_proj', '<strong>', '</strong>', 'Key Spec')" title="Bold text"><strong>B Bold</strong></button>
                                         <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_en_proj', '<span class="gold-text">', '</span>', 'Golden accent')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_en_proj')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -615,6 +619,27 @@ $is_editing = !empty($edit_item);
             textarea.value = text.substring(0, start) + replacement + text.substring(end);
             textarea.selectionStart = start + tagOpen.length;
             textarea.selectionEnd = start + replacement.length - tagClose.length;
+        }
+        
+        function insertLink(fieldId) {
+            var textarea = document.getElementById(fieldId);
+            if (!textarea) return;
+            textarea.focus();
+            var start = textarea.selectionStart;
+            var end = textarea.selectionEnd;
+            var text = textarea.value;
+            var selected = text.substring(start, end);
+            var defaultUrl = 'https://';
+            var url = prompt('أدخل رابط الموقع أو الصفحة (URL):\nمثال: https://alhumam.sa أو https://example.com أو projects.html', defaultUrl);
+            if (!url || url.trim() === '' || url.trim() === 'https://') return;
+            url = url.trim();
+            var linkText = selected ? selected : 'نص الرابط هنا';
+            var isExternal = /^https?:\/\//i.test(url);
+            var targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+            var replacement = '<a href="' + url + '"' + targetAttr + '>' + linkText + '</a>';
+            textarea.value = text.substring(0, start) + replacement + text.substring(end);
+            textarea.selectionStart = start;
+            textarea.selectionEnd = start + replacement.length;
         }
         function switchTab(tabId, btn) {
             document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
