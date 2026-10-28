@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- ==================== HOMEPAGE BILINGUAL ==================== -->
+  <url>
+    <loc>https://alhumam.sa/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+
+  <!-- ==================== CORE SECTIONS (ARABIC) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/pages/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/about.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/services.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/services.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/projects.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/sustainability.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/sustainability.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/sustainability.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/sustainability.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/innovation.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/innovation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/innovation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/innovation.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/media.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/media.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/media.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/media.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/careers.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/careers.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/contact.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ==================== CORE SECTIONS (ENGLISH) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/about.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/about.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/about.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/services.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/services.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/services.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/services.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/projects.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/projects.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/projects.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/sustainability.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/sustainability.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/sustainability.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/sustainability.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/innovation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/innovation.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/innovation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/innovation.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/media.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/media.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/media.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/media.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/careers.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/careers.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/careers.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/contact.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/contact.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/contact.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ==================== DEDICATED SERVICE PAGES (ARABIC) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/pages/service-excavation.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-excavation.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-excavation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-excavation.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-building.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-building.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-building.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-building.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-energy.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-energy.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-energy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-energy.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-facilities.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-facilities.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-facilities.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-facilities.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-mep.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-mep.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-mep.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-mep.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-infrastructure.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-infrastructure.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-infrastructure.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-infrastructure.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-design.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-design.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-design.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-design.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/service-civil.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-civil.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-civil.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-civil.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ==================== DEDICATED SERVICE PAGES (ENGLISH) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/en/service-excavation.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-excavation.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-excavation.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-excavation.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-building.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-building.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-building.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-building.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-energy.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-energy.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-energy.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-energy.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-facilities.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-facilities.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-facilities.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-facilities.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-mep.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-mep.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-mep.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-mep.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-infrastructure.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-infrastructure.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-infrastructure.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-infrastructure.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-design.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-design.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-design.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-design.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/service-civil.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/service-civil.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/service-civil.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/service-civil.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- ==================== ARTICLES & CASE STUDIES (ARABIC) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/pages/article-bim.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-bim.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-bim.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-bim.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-drones.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-drones.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-drones.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-drones.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-ai.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-ai.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-ai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-ai.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-green.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-green.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-green.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-green.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-news-gov.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-gov.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-gov.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-gov.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-news-green.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-green.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-green.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-green.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-news-safety.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-safety.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-safety.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-safety.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-project-ministry.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-ministry.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-ministry.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-ministry.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-project-residential.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-residential.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-residential.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-residential.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-project-highway.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-highway.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-highway.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-highway.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-project-industrial.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-industrial.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-industrial.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-industrial.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ==================== ARTICLES & CASE STUDIES (ENGLISH) ==================== -->
+  <url>
+    <loc>https://alhumam.sa/en/article-bim.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-bim.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-bim.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-bim.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-drones.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-drones.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-drones.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-drones.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-ai.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-ai.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-ai.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-ai.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-green.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-green.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-green.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-green.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-news-gov.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-gov.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-gov.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-gov.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-news-green.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-green.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-green.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-green.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-news-safety.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-news-safety.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-news-safety.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-news-safety.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-project-ministry.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-ministry.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-ministry.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-ministry.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-project-residential.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-residential.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-residential.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-residential.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-project-highway.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-highway.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-highway.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-highway.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-project-industrial.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-industrial.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-industrial.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-industrial.html"/>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/pages/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://alhumam.sa/en/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://alhumam.sa/en/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://alhumam.sa/pages/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://alhumam.sa/pages/article-project-advanced-industrial-logistics-park-al-kharj-1793180940491.html"/>
+    <lastmod>2026-10-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>
