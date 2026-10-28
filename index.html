@@ -60,18 +60,6 @@
     <meta name="twitter:title" content="شركة الهمام المتقدمة للمقاولات | Al Humam Advanced">
     <meta name="twitter:description" content="مقاول عام معتمد لتنفيذ مشاريع البناء والتشييد، أعمال الحفر العميق وسند الجوانب SBC 303 بالرياض.">
     <meta name="twitter:image" content="https://alhumam.sa/images/og-logo.jpg">
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-</script>
     <!-- Structured Data (Schema.org JSON-LD) -->
     <script type="application/ld+json">
 {
@@ -911,16 +899,18 @@
         </svg>
     </button>
     <script src="script.js?v=13.0"></script>
+    <!-- Netlify Identity Widget for Decap CMS invite / login token handling -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function() {
+              document.location.href = "/admin/";
+            });
+          }
         });
       }
-    });
-  }
-</script>
+    </script>
 </body>
 </html>

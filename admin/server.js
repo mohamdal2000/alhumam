@@ -506,7 +506,7 @@ const server = http.createServer((req, res) => {
   }
 
   // Handle Login Post
-  if (pathname === '/admin/' && req.method === 'POST') {
+  if ((pathname === '/admin/' || pathname === '/admin/index.php') && req.method === 'POST') {
     let body = '';
     req.on('data', chunk => { body += chunk.toString(); });
     req.on('end', () => {

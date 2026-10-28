@@ -12,6 +12,9 @@ Allow: /style.css
 Allow: /script.js
 
 # Disallow internal scripts, tools, and backup directories
+Disallow: /admin/
+Disallow: /admin_legacy/
+Disallow: /data/
 Disallow: /tools/
 Disallow: /scratch/
 Disallow: /.restore_points/

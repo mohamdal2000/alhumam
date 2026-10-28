@@ -10,6 +10,24 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/config.php';
 requireAuth();
+// PHP 7.4 Compatibility Polyfills
+if (!function_exists('str_ends_with')) {
+    function str_ends_with($haystack, $needle) {
+        $length = strlen($needle);
+        return $length === 0 || (substr($haystack, -$length) === $needle);
+    }
+}
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle) {
+        return strncmp($haystack, $needle, strlen($needle)) === 0;
+    }
+}
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle) {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
+}
+
 
 // ================= HELPER FUNCTIONS =================
 
@@ -24,8 +42,8 @@ function updateSitemap($fileName, $action = 'add') {
     $today = date('Y-m-d');
 
     if ($action === 'delete') {
-        $regexAr = '/[\t ]*<url>\s*<loc>' . preg_quote($locAr, '/') . '<\/loc>[\s\S]*?<\/url>\s*/i';
-        $regexEn = '/[\t ]*<url>\s*<loc>' . preg_quote($locEn, '/') . '<\/loc>[\s\S]*?<\/url>\s*/i';
+        $regexAr = '/[\\t ]*<url>\\s*<loc>' . preg_quote($locAr, '/') . '<\\/loc>[\\s\\S]*?<\\/url>\\s*/i';
+        $regexEn = '/[\\t ]*<url>\\s*<loc>' . preg_quote($locEn, '/') . '<\\/loc>[\\s\\S]*?<\\/url>\\s*/i';
         $sitemap = preg_replace($regexAr, '', $sitemap);
         $sitemap = preg_replace($regexEn, '', $sitemap);
         if ($sitemap !== null && strlen($sitemap) > 100) {
@@ -35,15 +53,33 @@ function updateSitemap($fileName, $action = 'add') {
     }
 
     if (strpos($sitemap, "<loc>{$locAr}</loc>") !== false) {
-        $regexAr = '/(<loc>' . preg_quote($locAr, '/') . '<\/loc>[\s\S]*?<lastmod>)[^<]+(<\/lastmod>)/i';
-        $sitemap = preg_replace($regexAr, '${1}' . $today . '${2}', $sitemap);
+        $regexAr = '/(<loc>' . preg_quote($locAr, '/') . '<\\/loc>[\\s\\S]*?<lastmod>)[^<]+(<\\/lastmod>)/i';
+        $sitemap = preg_replace($regexAr, '\${1}' . $today . '\${2}', $sitemap);
     }
     if (strpos($sitemap, "<loc>{$locEn}</loc>") !== false) {
-        $regexEn = '/(<loc>' . preg_quote($locEn, '/') . '<\/loc>[\s\S]*?<lastmod>)[^<]+(<\/lastmod>)/i';
-        $sitemap = preg_replace($regexEn, '${1}' . $today . '${2}', $sitemap);
+        $regexEn = '/(<loc>' . preg_quote($locEn, '/') . '<\\/loc>[\\s\\S]*?<lastmod>)[^<]+(<\\/lastmod>)/i';
+        $sitemap = preg_replace($regexEn, '\${1}' . $today . '\${2}', $sitemap);
     }
     if (strpos($sitemap, "<loc>{$locAr}</loc>") === false && strpos($sitemap, "<loc>{$locEn}</loc>") === false) {
-        $newBlock = "  <url>\n    <loc>{$locAr}</loc>\n    <xhtml:link rel=\"alternate\" hreflang=\"ar\" href=\"{$locAr}\"/>\n    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{$locEn}\"/>\n    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{$locAr}\"/>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n  <url>\n    <loc>{$locEn}</loc>\n    <xhtml:link rel=\"alternate\" hreflang=\"en\" href=\"{$locEn}\"/>\n    <xhtml:link rel=\"alternate\" hreflang=\"ar\" href=\"{$locAr}\"/>\n    <xhtml:link rel=\"alternate\" hreflang=\"x-default\" href=\"{$locAr}\"/>\n    <lastmod>{$today}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>\n</urlset>";
+        $newBlock = '  <url>\n'
+            . '    <loc>' . $locAr . '</loc>\n'
+            . '    <xhtml:link rel="alternate" hreflang="ar" href="' . $locAr . '"/>\n'
+            . '    <xhtml:link rel="alternate" hreflang="en" href="' . $locEn . '"/>\n'
+            . '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $locAr . '"/>\n'
+            . '    <lastmod>' . $today . '</lastmod>\n'
+            . '    <changefreq>monthly</changefreq>\n'
+            . '    <priority>0.8</priority>\n'
+            . '  </url>\n'
+            . '  <url>\n'
+            . '    <loc>' . $locEn . '</loc>\n'
+            . '    <xhtml:link rel="alternate" hreflang="en" href="' . $locEn . '"/>\n'
+            . '    <xhtml:link rel="alternate" hreflang="ar" href="' . $locAr . '"/>\n'
+            . '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $locAr . '"/>\n'
+            . '    <lastmod>' . $today . '</lastmod>\n'
+            . '    <changefreq>monthly</changefreq>\n'
+            . '    <priority>0.8</priority>\n'
+            . '  </url>\n'
+            . '</urlset>';
         $sitemap = str_replace('</urlset>', $newBlock, $sitemap);
     }
     if ($sitemap !== null && strlen($sitemap) > 100) {
@@ -56,19 +92,19 @@ function removeCardFromListing($pagePath, $fileName, $type) {
     $html = @file_get_contents($pagePath);
     if ($html === false || strlen($html) < 500) return false;
 
-    $baseSlug = preg_replace('/\.html$/i', '', basename($fileName));
+    $baseSlug = preg_replace('/\\.html$/i', '', basename($fileName));
     if (empty($baseSlug)) return false;
 
     // Matches any href referencing this slug with or without .html
-    $hrefPattern = 'href=[\"\'][^\"\']*?' . preg_quote($baseSlug, '/') . '(?:\.html)?[\"\']';
+    $hrefPattern = 'href=[\\"\\\'][^\\"\\\']*?' . preg_quote($baseSlug, '/') . '(?:\\.html)?[\\"\\\']';
 
     $cleaned = null;
     if ($type === 'article') {
-        $pattern = '/(?:\r?\n)?[\t ]*<article\b[^>]*class=[\"\'][^\"\']*?\bmedia-card\b[^\"\']*?[\"\'][^>]*>(?:(?!<article\b)[\s\S])*?' . $hrefPattern . '[\s\S]*?<\/article>/i';
+        $pattern = '/\\n?[\\t ]*<article\\b[^>]*class=[\\"\\\'][^\\"\\\']*?\\bmedia-card\\b[^\\"\\\']*?[\\"\\\'][^>]*>(?:(?!<article\\b)[\\s\\S])*?' . $hrefPattern . '[\\s\\S]*?<\\/article>/i';
         $cleaned = preg_replace($pattern, '', $html);
     } else {
         // Project card has 3 closing </div> tags
-        $pattern = '/(?:\r?\n)?[\t ]*<div\b[^>]*class=[\"\'][^\"\']*?\bproject-card\b(?!__)[^\"\']*?[\"\'][^>]*>(?:(?!<div\b[^>]*class=[\"\'][^\"\']*?\bproject-card\b(?!__))[\s\S])*?' . $hrefPattern . '(?:(?!<div\b)[\s\S])*?<\/div>\s*<\/div>/i';
+        $pattern = '/\\n?[\\t ]*<div\\b[^>]*class=[\\"\\\'][^\\"\\\']*?\\bproject-card\\b(?!__)[^\\"\\\']*?[\\"\\\'][^>]*>(?:(?!<div\\b[^>]*class=[\\"\\\'][^\\"\\\']*?\\bproject-card\\b(?!__))[\\s\\S])*?' . $hrefPattern . '[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*<\\/div>/i';
         $cleaned = preg_replace($pattern, '', $html);
     }
 
@@ -88,9 +124,9 @@ function injectCardIntoGrid($pagePath, $gridClass, $cardHtml) {
     }
 
     // Match <div class="gridClass"> or with any attributes/spaces
-    $pattern = '/(<div\b[^>]*class=[\"\'][^\"\']*\b' . preg_quote($gridClass, '/') . '\b[^\"\']*\b[\"\'][^>]*>)/i';
+    $pattern = '/(<div\\b[^>]*class=[\\"\\\'][^\\"\\\']*\\b' . preg_quote($gridClass, '/') . '\\b[^\\"\\\']*\\b[\\"\\\'][^>]*>)/i';
     if (preg_match($pattern, $content)) {
-        $updated = preg_replace($pattern, "$1\n" . $cardHtml, $content, 1);
+        $updated = preg_replace($pattern, "$1\\n" . $cardHtml, $content, 1);
         if ($updated !== null && !empty($updated) && strlen($updated) > strlen($content)) {
             $written = @file_put_contents($pagePath, $updated, LOCK_EX);
             return $written !== false;
@@ -122,14 +158,14 @@ function applySiteTemplate($pageHtml, $templatePath, $altDir, $fileName, $type) 
     $footer = substr($tpl, $fStart, $fEnd - $fStart);
 
     // Language toggle points to this article's counterpart page
-    $header = preg_replace('/href="\.\.\/(en|pages)\/article-[^"]+"/', 'href="../' . $altDir . '/' . $fileName . '"', $header);
+    $header = preg_replace('/href="\\.\\.\\/(en|pages)\\/article-[^"]+"/', 'href="../' . $altDir . '/' . $fileName . '"', $header);
     // Active nav item
     $header = str_replace(' nav__link--active', '', $header);
     $activeHref = $type === 'project' ? 'projects.html' : 'media.html';
     $header = preg_replace('/(<a href="' . preg_quote($activeHref, '/') . '"[^>]*class="nav__link)"/', '$1 nav__link--active"', $header, 1);
     // Replace scripts with current versions
-    $footer = preg_replace('/\s*<script src="\.\.\/(script|article)\.js[^"]*"><\/script>/', '', $footer);
-    $footer = rtrim($footer) . "\n    <script src=\"../script.js?v=13.9\"></script>\n    <script src=\"../article.js?v=14.0\"></script>\n";
+    $footer = preg_replace('/\\s*<script src="\\.\\.\\/(script|article)\\.js[^"]*"><\\/script>/', '', $footer);
+    $footer = rtrim($footer) . "\n    " . '<script src="../script.js?v=13.9"></script>' . "\n    " . '<script src="../article.js?v=14.0"></script>' . "\n";
 
     $pStart = strpos($pageHtml, '<div class="site-main-bg"></div>');
     $pHeaderEnd = strpos($pageHtml, '</header>');
@@ -152,34 +188,34 @@ function sanitizeArticleHtml($content) {
     if (empty($content)) return '';
 
     // Check if user input contains HTML tags
-    $hasTags = (bool)preg_match('/<[a-z][\s\S]*>/i', $content);
+    $hasTags = (bool)preg_match('/<[a-z][\\s\\S]*>/i', $content);
 
     if ($hasTags) {
         // Strip dangerous tags completely
-        $clean = preg_replace('/<\s*(script|iframe|object|embed|applet|meta|link|style|form|input|button|select)[^>]*>[\s\S]*?<\s*\/\s*\1\s*>/i', '', $content);
-        $clean = preg_replace('/<\s*(script|iframe|object|embed|applet|meta|link|style|form|input|button|select)[^>]*\/?>/i', '', $clean);
+        $clean = preg_replace('/<\\s*(script|iframe|object|embed|applet|meta|link|style|form|input|button|select)[^>]*>[\\s\\S]*?<\\s*\\/\\s*\\1\\s*>/i', '', $content);
+        $clean = preg_replace('/<\\s*(script|iframe|object|embed|applet|meta|link|style|form|input|button|select)[^>]*\\/?>/i', '', $clean);
         // Strip on* event attributes
-        $clean = preg_replace('/\s*on[a-z]+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/i', '', $clean);
+        $clean = preg_replace('/\\s*on[a-z]+\\s*=\\s*("[^"]*"|\'[^\']*\'|[^\\s>]+)/i', '', $clean);
         // Strip javascript: URLs
-        $clean = preg_replace('/href\s*=\s*[\"']\s*javascript:[^\"']*[\"']/i', 'href="#"', $clean);
+        $clean = preg_replace('/href\\s*=\\s*[\\"\']\\s*javascript:[^\\"\']*[\\"\']/i', 'href="#"', $clean);
 
         // Process line by line to ensure bare lines are wrapped in <p>
-        $lines = explode("\n", $clean);
+        $lines = explode("\\n", $clean);
         $result = [];
         foreach ($lines as $line) {
             $trimmed = trim($line);
             if (empty($trimmed)) continue;
             // If already a block tag
-            if (preg_match('/^<(h[1-6]|p|ul|ol|li|blockquote|div)\b/i', $trimmed)) {
+            if (preg_match('/^<(h[1-6]|p|ul|ol|li|blockquote|div)\\b/i', $trimmed)) {
                 $result[] = '                ' . $trimmed;
             } else {
                 $result[] = '                <p>' . $trimmed . '</p>';
             }
         }
-        return implode("\n", $result);
+        return implode("\\n", $result);
     } else {
         // Plain text: convert paragraphs separated by blank lines into <p> tags
-        $paras = preg_split('/\r?\n\s*\r?\n/', trim($content));
+        $paras = preg_split('/\\r?\\n\\s*\\r?\\n/', trim($content));
         $result = [];
         foreach ($paras as $para) {
             $trimmed = trim($para);
@@ -188,7 +224,7 @@ function sanitizeArticleHtml($content) {
                 $result[] = '                <p>' . $withBr . '</p>';
             }
         }
-        return implode("\n", $result);
+        return implode("\\n", $result);
     }
 }
 
@@ -234,7 +270,7 @@ try {
         }
 
         if (empty($fileToDelete) && !empty($deleteId)) {
-            $fileToDelete = str_ends_with($deleteId, '.html') ? $deleteId : ($deleteId . '.html');
+            $fileToDelete = (substr($deleteId, -5) === '.html') ? $deleteId : ($deleteId . '.html');
         }
 
         // 1. Remove HTML files (both Arabic and English pages)
@@ -379,7 +415,7 @@ try {
     }
 
     // Calculate Home Image Path (never null)
-    $image_path_home = preg_replace('/^\.\.\//', '', (string)$image_path_relative);
+    $image_path_home = preg_replace('/^\\.\\.\\//', '', (string)$image_path_relative);
     if (empty($image_path_home)) {
         $image_path_home = 'images/articles/news-gov.jpg';
     }
@@ -392,12 +428,12 @@ try {
         } elseif (!empty($existing_file)) {
             $file_name = $existing_file;
         } elseif (!empty($edit_id)) {
-            $file_name = str_ends_with($edit_id, '.html') ? $edit_id : ($edit_id . '.html');
+            $file_name = (substr($edit_id, -5) === '.html') ? $edit_id : ($edit_id . '.html');
         }
     }
 
     if (empty($file_name)) {
-        $clean_slug_base = preg_replace('/[^a-z0-9\-]/', '-', strtolower($title_en));
+        $clean_slug_base = preg_replace('/[^a-z0-9\\-]/', '-', strtolower($title_en));
         $clean_slug_base = trim((string)preg_replace('/-+/', '-', (string)$clean_slug_base), '-');
         if (empty($clean_slug_base) || strlen($clean_slug_base) < 3) {
             $clean_slug_base = $type === 'project' ? 'custom-project' : 'custom-news';
@@ -411,12 +447,12 @@ try {
     // 3. Format Content for Both Languages using Safe Rich Formatting
     $ar_paragraphs_html = sanitizeArticleHtml($content_ar);
     if (empty($ar_paragraphs_html)) {
-        $ar_paragraphs_html = "                <p>" . htmlspecialchars($excerpt_ar, ENT_QUOTES, 'UTF-8') . "</p>\n";
+        $ar_paragraphs_html = "                <p>" . htmlspecialchars($excerpt_ar, ENT_QUOTES, 'UTF-8') . "</p>\\n";
     }
 
     $en_paragraphs_html = sanitizeArticleHtml($content_en);
     if (empty($en_paragraphs_html)) {
-        $en_paragraphs_html = "                <p>" . htmlspecialchars($excerpt_en, ENT_QUOTES, 'UTF-8') . "</p>\n";
+        $en_paragraphs_html = "                <p>" . htmlspecialchars($excerpt_en, ENT_QUOTES, 'UTF-8') . "</p>\\n";
     }
 
     $back_url = $type === 'project' ? 'projects.html' : 'media.html';
@@ -439,11 +475,11 @@ try {
     <link rel="stylesheet" href="../style.css?v=13.9">
     <link rel="stylesheet" href="../article.css">
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TFXX823L');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+    new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
+    \'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,\'script\',\'dataLayer\',\'GTM-TFXX823L\');</script>
     <!-- End Google Tag Manager -->
     <title>' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . ' | شركة الهمام المتقدمة</title>
     <meta name="description" content="' . htmlspecialchars($excerpt_ar, ENT_QUOTES, 'UTF-8') . '">
@@ -506,7 +542,7 @@ try {
     </header>
 
     <!-- ============ ARTICLE HERO ============ -->
-    <div class="article-hero" id="articleHero" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+    <div class="article-hero" id="articleHero" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
         <div class="article-header" id="articleHeader">
             <span class="badge-tag" style="display:inline-block; margin-bottom:12px; font-size:1rem; padding:4px 14px;">' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '</span>
             <h1 class="article-title" id="articleTitle" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '</h1>
@@ -590,11 +626,11 @@ try {
     <link rel="stylesheet" href="../style.css?v=13.9">
     <link rel="stylesheet" href="../article.css">
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TFXX823L');</script>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({\'gtm.start\':
+    new Date().getTime(),event:\'gtm.js\'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!=\'dataLayer\'?\'&l=\'+l:\'\';j.async=true;j.src=
+    \'https://www.googletagmanager.com/gtm.js?id=\'+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,\'script\',\'dataLayer\',\'GTM-TFXX823L\');</script>
     <!-- End Google Tag Manager -->
     <title>' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . ' | Al Humam Advanced Contracting</title>
     <meta name="description" content="' . htmlspecialchars($excerpt_en, ENT_QUOTES, 'UTF-8') . '">
@@ -657,7 +693,7 @@ try {
     </header>
 
     <!-- ============ ARTICLE HERO ============ -->
-    <div class="article-hero" id="articleHero" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+    <div class="article-hero" id="articleHero" style="background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
         <div class="article-header" id="articleHeader">
             <span class="badge-tag" style="display:inline-block; margin-bottom:12px; font-size:1rem; padding:4px 14px;">' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '</span>
             <h1 class="article-title" id="articleTitle" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '</h1>
@@ -751,7 +787,7 @@ try {
         // 6.1 Arabic Media Card (Subpage: pages/media.html)
         $card_ar_sub = '
                 <article class="media-card" data-aos="fade-up">
-                    <div class="media-card__img" style="background-image: url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '');"></div>
+                    <div class="media-card__img" style="background-image: url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\');"></div>
                     <div class="media-card__body">
                         <h3 class="media-card__title" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '</h3>
                         <div class="media-card__footer">
@@ -764,7 +800,7 @@ try {
         // 6.2 English Media Card (Subpage: en/media.html)
         $card_en_sub = '
                 <article class="media-card" data-aos="fade-up">
-                    <div class="media-card__img" style="background-image: url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '');"></div>
+                    <div class="media-card__img" style="background-image: url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\');"></div>
                     <div class="media-card__body">
                         <h3 class="media-card__title" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '</h3>
                         <div class="media-card__footer">
@@ -777,7 +813,7 @@ try {
         // 6.3 Arabic Card for Homepage (index.html) - only used if updating an existing homepage card
         $card_ar_home = '
                 <article class="media-card" data-aos="fade-up">
-                    <div class="media-card__img" style="background-image: url('' . htmlspecialchars($image_path_home, ENT_QUOTES, 'UTF-8') . '');"></div>
+                    <div class="media-card__img" style="background-image: url(\'' . htmlspecialchars($image_path_home, ENT_QUOTES, 'UTF-8') . '\');"></div>
                     <div class="media-card__body">
                         <h3 class="media-card__title" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '</h3>
                         <div class="media-card__footer">
@@ -790,7 +826,7 @@ try {
         // 6.4 English Card for Homepage (en/index.html) - only used if updating an existing homepage card
         $card_en_home = '
                 <article class="media-card" data-aos="fade-up">
-                    <div class="media-card__img" style="background-image: url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '');"></div>
+                    <div class="media-card__img" style="background-image: url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\');"></div>
                     <div class="media-card__body">
                         <h3 class="media-card__title" data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '</h3>
                         <div class="media-card__footer">
@@ -821,7 +857,7 @@ try {
         // 6.1 Arabic Project Card (Subpage: pages/projects.html)
         $card_ar_sub = '
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '</span>
                             <h3 data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '</h3>
@@ -834,7 +870,7 @@ try {
         // 6.2 English Project Card (Subpage: en/projects.html)
         $card_en_sub = '
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '</span>
                             <h3 data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '</h3>
@@ -847,7 +883,7 @@ try {
         // 6.3 Arabic Project Card for Homepage (index.html) - only if updating an existing homepage card
         $card_ar_home = '
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_home, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_home, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '</span>
                             <h3 data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '</h3>
@@ -860,7 +896,7 @@ try {
         // 6.4 English Project Card for Homepage (en/index.html) - only if updating an existing homepage card
         $card_en_home = '
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . ''); background-size: cover; background-position: center;">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url(\'' . htmlspecialchars($image_path_relative, ENT_QUOTES, 'UTF-8') . '\'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($category_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($category_en, ENT_QUOTES, 'UTF-8') . '</span>
                             <h3 data-en="' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '" data-ar="' . htmlspecialchars($title_ar, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($title_en, ENT_QUOTES, 'UTF-8') . '</h3>
@@ -928,7 +964,12 @@ try {
 
 } catch (Throwable $e) {
     @error_log('Publish fatal error: ' . $e->getMessage() . ' in ' . $e->getFile() . ':' . $e->getLine());
-    ob_clean();
-    header('Location: index.php?error=' . urlencode('حدث خطأ أثناء المعالجة: ' . $e->getMessage()));
+    if (ob_get_level()) { @ob_clean(); }
+    $errMsg = 'حدث خطأ: ' . $e->getMessage();
+    if (!headers_sent()) {
+        header('Location: index.php?error=' . urlencode($errMsg));
+    } else {
+        echo '<script>window.location.href="index.php?error=' . urlencode($errMsg) . '";</script>';
+    }
     exit;
 }

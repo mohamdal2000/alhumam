@@ -887,5 +887,18 @@
         </svg>
     </button>
     <script src="../script.js?v=13.0"></script>
+    <!-- Netlify Identity Widget for Decap CMS invite / login token handling -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function() {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
 </body>
 </html>

@@ -2,43 +2,61 @@ backend:
   name: git-gateway
   branch: main
 
-# مسار حفظ الصور
+# Local development option with decap-server if needed:
+# local_backend: true
+
 media_folder: "images/articles"
 public_folder: "../images/articles"
 
 collections:
-  # قسم المركز الإعلامي والأخبار
+  # ==========================================
+  # 1. الأخبار والمقالات (Articles & News)
+  # ==========================================
   - name: "articles"
-    label: "المقالات والأخبار"
-    folder: "content/articles"
+    label: "الأخبار والمقالات (Articles)"
+    label_singular: "مقال / خبر"
+    folder: "data/articles"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{slug}}"
     fields:
-      - { label: "عنوان المقال بالعربية", name: "title_ar", widget: "string" }
-      - { label: "English Title", name: "title_en", widget: "string" }
-      - { label: "تصنيف المقال بالعربية", name: "category_ar", widget: "select", options: ["مشاريع حكومية", "أخبار هندسية", "استدامة وإنشاء أخضر", "سلامة مهنية", "بنية تحتية"] }
-      - { label: "English Category", name: "category_en", widget: "select", options: ["Government Projects", "Engineering News", "Sustainability & Green", "Safety & HSE", "Infrastructure"] }
-      - { label: "تاريخ النشر", name: "date", widget: "datetime" }
-      - { label: "الصورة البارزة", name: "image", widget: "image" }
-      - { label: "نبذة مختصرة بالعربية", name: "excerpt_ar", widget: "text" }
-      - { label: "English Excerpt", name: "excerpt_en", widget: "text" }
-      - { label: "تفاصيل المقال بالعربية", name: "body_ar", widget: "markdown" }
-      - { label: "English Content", name: "body_en", widget: "markdown" }
+      - { label: "نوع المحتوى", name: "type", widget: "hidden", default: "article" }
+      - { label: "معرف الصفحة الفريد (Slug)", name: "id", widget: "string", hint: "مثال: article-news-expansion" }
+      - { label: "عنوان المقال (بالعربية)", name: "title_ar", widget: "string" }
+      - { label: "Title (English)", name: "title_en", widget: "string" }
+      - { label: "التصنيف (بالعربية)", name: "category_ar", widget: "string", default: "أخبار الشركة" }
+      - { label: "Category (English)", name: "category_en", widget: "string", default: "Company News" }
+      - { label: "تاريخ النشر (بالعربية)", name: "date_ar", widget: "string", hint: "مثال: أكتوبر 2026" }
+      - { label: "Publication Date (English)", name: "date_en", widget: "string", hint: "e.g. October 2026" }
+      - { label: "الكاتب / المصدر (عربي)", name: "author_ar", widget: "string", default: "المكتب الإعلامي لشركة الهمام المتقدمة" }
+      - { label: "Author / Source (English)", name: "author_en", widget: "string", default: "Al Humam Media Office" }
+      - { label: "الصورة الرئيسية", name: "image", widget: "image" }
+      - { label: "نبذة مختصرة (بالعربية)", name: "excerpt_ar", widget: "text" }
+      - { label: "Short Excerpt (English)", name: "excerpt_en", widget: "text" }
+      - { label: "نص المقال الكامل (بالعربية)", name: "content_ar", widget: "markdown" }
+      - { label: "Full Content (English)", name: "content_en", widget: "markdown" }
 
-  # قسم سجل المشاريع
+  # ==========================================
+  # 2. المشاريع الهندسية (Engineering Projects)
+  # ==========================================
   - name: "projects"
-    label: "مشاريعنا"
-    folder: "content/projects"
+    label: "المشاريع الإنشائية (Projects)"
+    label_singular: "مشروع"
+    folder: "data/projects"
     create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{year}}-{{month}}-{{slug}}"
     fields:
-      - { label: "اسم المشروع بالعربية", name: "title_ar", widget: "string" }
-      - { label: "Project Name (EN)", name: "title_en", widget: "string" }
-      - { label: "نطاق العمل بالعربية", name: "scope_ar", widget: "string" }
-      - { label: "Scope in English", name: "scope_en", widget: "string" }
-      - { label: "تصنيف المشروع", name: "category", widget: "select", options: ["حكومي", "سكني", "تجاري", "صناعي", "بنية تحتية"] }
-      - { label: "صورة المشروع", name: "image", widget: "image" }
-      - { label: "نبذة مختصرة بالعربية", name: "excerpt_ar", widget: "text" }
-      - { label: "English Excerpt", name: "excerpt_en", widget: "text" }
-      - { label: "المواصفات الفنية بالعربية", name: "body_ar", widget: "markdown" }
-      - { label: "English Specs", name: "body_en", widget: "markdown" }
+      - { label: "نوع المحتوى", name: "type", widget: "hidden", default: "project" }
+      - { label: "معرف المشروع الفريد (Slug)", name: "id", widget: "string", hint: "مثال: article-project-riyadh-tower" }
+      - { label: "عنوان المشروع (بالعربية)", name: "title_ar", widget: "string" }
+      - { label: "Project Title (English)", name: "title_en", widget: "string" }
+      - { label: "قطاع المشروع (بالعربية)", name: "category_ar", widget: "select", options: ["صناعي", "بنية تحتية", "حكومي", "سكني وتجاري", "طاقة وبتروكيماويات"] }
+      - { label: "Sector (English)", name: "category_en", widget: "select", options: ["Industrial", "Infrastructure", "Government", "Residential & Commercial", "Energy & Petrochemical"] }
+      - { label: "نطاق العمل وحجم المشروع (بالعربية)", name: "scope_ar", widget: "string", hint: "مثال: مساحة 85,000 متر مربع" }
+      - { label: "Scope / Capacity (English)", name: "scope_en", widget: "string", hint: "e.g. 85,000 sqm development" }
+      - { label: "تاريخ الإنجاز / النشر (بالعربية)", name: "date_ar", widget: "string", hint: "مثال: أكتوبر 2026" }
+      - { label: "Date (English)", name: "date_en", widget: "string", hint: "e.g. October 2026" }
+      - { label: "الصورة الرئيسية للمشروع", name: "image", widget: "image" }
+      - { label: "نبذة مختصرة عن المشروع (بالعربية)", name: "excerpt_ar", widget: "text" }
+      - { label: "Project Excerpt (English)", name: "excerpt_en", widget: "text" }
+      - { label: "المواصفات والتفاصيل الهندسية (بالعربية)", name: "content_ar", widget: "markdown" }
+      - { label: "Technical Details & Scope (English)", name: "content_en", widget: "markdown" }
