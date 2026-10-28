@@ -110,8 +110,8 @@ function removeCardFromListing($pagePath, $fileName, $type) {
         $pattern = '/\s*<article\b[^>]*class=["\x27][^"\x27]*\bmedia-card\b[^"\x27]*["\x27][^>]*>(?:(?!<article\b).)*?' . $hrefPattern . '.*?<\/article>\s*/isu';
         $cleaned = preg_replace($pattern, "\n", $html);
     } else {
-        $pattern = '/\s*<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b(?!__)[^"\x27]*["\x27][^>]*>(?:(?!<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b(?!__)).)*?' . $hrefPattern . '.*?<\/div>\s*<\/div>\s*<\/div>\s*/isu';
-        $cleaned = preg_replace($pattern, "\n", $cleaned);
+        $pattern = '/\s*<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b(?!__)[^"\x27]*["\x27][^>]*>(?:(?!<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b).)*?' . $hrefPattern . '.*?<\/div>\s*<\/div>\s*(?=(?:<div\b[^>]*class=["\x27][^"\x27]*\bproject-card\b|<!--|<\/div>\s*<\/section>|<\/div>\s*<\/div>|$))/isu';
+        $cleaned = preg_replace($pattern, "\n", $html);
     }
 
     if ($cleaned !== null && $cleaned !== $html && strlen($cleaned) >= (strlen($html) - 30000)) {

@@ -1429,6 +1429,7 @@ html[data-theme="light"] .about__cta-btn:hover {
     border-radius: 12px;
     overflow: hidden;
     transition: var(--transition);
+    background-color: #121c2b;
 }
 
 .project-card:hover {
@@ -1446,7 +1447,8 @@ html[data-theme="light"] .about__cta-btn:hover {
     display: flex;
     align-items: flex-end;
     padding: 32px;
-    background: linear-gradient(to bottom, rgba(15, 52, 96, 0.6), rgba(26, 26, 46, 0.9)), url('images/commercial_placeholder.avif');
+    background-color: #121c2b;
+    background-image: linear-gradient(to bottom, rgba(15, 52, 96, 0.6), rgba(18, 28, 43, 0.95));
     background-size: cover;
     background-position: center;
 }
@@ -1850,6 +1852,7 @@ html[lang="ar"] .partners__track {
     inset: 0;
     width: 100%;
     height: 100% !important;
+    background-color: #121c2b;
     background-size: cover !important;
     background-position: center !important;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -6632,4 +6635,12 @@ html[data-theme="light"] .svc-process-card p {
         width: 25px;
         height: 25px;
     }
+}
+
+/* Brand Gold Highlight for Rich Article & Project Content */
+.gold-text,
+.text-gold,
+.highlight-gold {
+    color: var(--accent, #c8a45a) !important;
+    font-weight: 600;
 }

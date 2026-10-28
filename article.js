@@ -411,16 +411,13 @@ function renderArticle(id, lang) {
     const data = articlesData[id];
     if (!data) return;
 
-    // Update hero background — only override CSS default if the image loads successfully
+    // Update hero background immediately to prevent silver placeholder flash
     const articleHero = document.querySelector('.article-hero');
     if (articleHero && data.image) {
-        const preload = new Image();
-        preload.onload = () => {
-            articleHero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.75)), url('${resolveAssetPath(data.image)}')`;
-            articleHero.style.backgroundSize = 'cover';
-            articleHero.style.backgroundPosition = 'center';
-        };
-        preload.src = resolveAssetPath(data.image);
+        const bgUrl = resolveAssetPath(data.image);
+        articleHero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.75)), url('${bgUrl}')`;
+        articleHero.style.backgroundSize = 'cover';
+        articleHero.style.backgroundPosition = 'center';
     }
 
     // Update content safely

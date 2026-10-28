@@ -1,9 +1,7 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: mohamdal2000/alhumam
   branch: main
-
-# Local development option with decap-server if needed:
-# local_backend: true
 
 media_folder: "images/articles"
 public_folder: "../images/articles"

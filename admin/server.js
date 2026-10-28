@@ -118,16 +118,16 @@ function removeCardFromListing(pagePath, fileName, type) {
 
   const baseSlug = path.basename(fileName, '.html');
   if (!baseSlug) return false;
+  const slugCore = baseSlug.replace(/-\d{9,}$/, '');
 
-  const hrefPattern = 'href=["\'][^"\']*?' + escapeRegex(baseSlug) + '(?:\\.html)?["\']';
+  const hrefPattern = 'href=["\'][^"\']*?(?:' + escapeRegex(baseSlug) + '|' + escapeRegex(slugCore) + ')(?:-\\d+)?(?:\\.html)?["\']';
 
   let cleaned = html;
   if (type === 'article') {
     const mediaRegex = new RegExp('(?:\\r?\\n)?[\\t ]*<article\\b[^>]*class=["\'][^"\']*?\\bmedia-card\\b[^"\']*?["\'][^>]*>(?:(?!<article\\b)[\\s\\S])*?' + hrefPattern + '[\\s\\S]*?<\\/article>', 'gi');
     cleaned = html.replace(mediaRegex, '');
   } else {
-    // Project card has 3 closing </div> tags
-    const projRegex = new RegExp('(?:\\r?\\n)?[\\t ]*<div\\b[^>]*class=["\'][^"\']*?\\bproject-card\\b(?!__)[^"\']*?["\'][^>]*>(?:(?!<div\\b[^>]*class=["\'][^"\']*?\\bproject-card\\b(?!__))([\\s\\S]))*?' + hrefPattern + '(?:(?!<div\\b)[\\s\\S])*?<\\/div>\\s*<\\/div>', 'gi');
+    const projRegex = new RegExp('(?:\\r?\\n)?[\\t ]*<div\\b[^>]*class=["\'][^"\']*?\\bproject-card\\b(?!__)[^"\']*?["\'][^>]*>(?:(?!<div\\b[^>]*class=["\'][^"\']*?\\bproject-card\\b)[\\s\\S])*?' + hrefPattern + '[\\s\\S]*?<\\/div>\\s*<\\/div>\\s*(?=(?:<div\\b[^>]*class=["\'][^"\']*?\\bproject-card\\b|<!--|<\\/div>\\s*<\\/section>|<\\/div>\\s*<\\/div>|$))', 'gi');
     cleaned = html.replace(projRegex, '');
   }
   if (cleaned && cleaned !== html && cleaned.length >= (html.length - 15000)) {
@@ -809,8 +809,8 @@ const server = http.createServer((req, res) => {
                     </div>
                 </article>`;
 
-          injectCardIntoGrid(subpageAr, 'media__grid', cardArSub);
-          injectCardIntoGrid(subpageEn, 'media__grid', cardEnSub);
+          injectCardIntoGrid(subpageAr, 'media__grid', cardArSub, fileName, type);
+          injectCardIntoGrid(subpageEn, 'media__grid', cardEnSub, fileName, type);
 
           // Homepage Isolation: only update existing card if it was already on homepage
           if (is_edit) {
@@ -839,7 +839,7 @@ const server = http.createServer((req, res) => {
 
           const cardEnSub = `
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: url('${escapeHtml(finalImage)}');">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('${escapeHtml(finalImage)}'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="${escapeHtml(category_en)}" data-ar="${escapeHtml(category_ar)}">${escapeHtml(category_en)}</span>
                             <h3 data-en="${escapeHtml(title_en)}" data-ar="${escapeHtml(title_ar)}">${escapeHtml(title_en)}</h3>
@@ -863,7 +863,7 @@ const server = http.createServer((req, res) => {
 
           const cardEnHome = `
                 <div class="project-card" data-aos="fade-up">
-                    <div class="project-card__img" style="background-image: url('${escapeHtml(finalImage)}');">
+                    <div class="project-card__img" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.15), rgba(0,0,0,0.85)), url('${escapeHtml(finalImage)}'); background-size: cover; background-position: center;">
                         <div class="project-card__content">
                             <span class="project-card__tag" data-en="${escapeHtml(category_en)}" data-ar="${escapeHtml(category_ar)}">${escapeHtml(category_en)}</span>
                             <h3 data-en="${escapeHtml(title_en)}" data-ar="${escapeHtml(title_ar)}">${escapeHtml(title_en)}</h3>
@@ -873,8 +873,8 @@ const server = http.createServer((req, res) => {
                     </div>
                 </div>`;
 
-          injectCardIntoGrid(subpageAr, 'projects__grid', cardArSub);
-          injectCardIntoGrid(subpageEn, 'projects__grid', cardEnSub);
+          injectCardIntoGrid(subpageAr, 'projects__grid', cardArSub, fileName, type);
+          injectCardIntoGrid(subpageEn, 'projects__grid', cardEnSub, fileName, type);
 
           // Homepage Isolation: only update existing card if it was already on homepage
           if (is_edit) {
@@ -1200,7 +1200,8 @@ const server = http.createServer((req, res) => {
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('srv_content_ar_media', '<strong>', '</strong>', 'نص عريض')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('srv_content_ar_media', '<span class=\"gold-text\">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('srv_content_ar_media', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('srv_content_ar_media')" title="إدراج رابط تشعبي">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -1258,7 +1259,8 @@ const server = http.createServer((req, res) => {
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('srv_content_en_media', '<strong>', '</strong>', 'Bold text')" title="Bold text"><strong>B Bold</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('srv_content_en_media', '<span class=\"gold-text\">', '</span>', 'Golden accent text')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('srv_content_en_media', 'Golden accent text')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('srv_content_en_media')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -1356,7 +1358,8 @@ const server = http.createServer((req, res) => {
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('srv_content_ar_proj', '<strong>', '</strong>', 'مواصفة تقنية بارزة')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('srv_content_ar_proj', '<span class=\"gold-text\">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('srv_content_ar_proj', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('srv_content_ar_proj')" title="إدراج رابط تشعبي">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -1410,7 +1413,8 @@ const server = http.createServer((req, res) => {
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('srv_content_en_proj', '<strong>', '</strong>', 'Key Spec')" title="Bold text"><strong>B Bold</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('srv_content_en_proj', '<span class=\"gold-text\">', '</span>', 'Golden accent')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('srv_content_en_proj', 'Golden accent')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('srv_content_en_proj')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
@@ -1449,7 +1453,32 @@ const server = http.createServer((req, res) => {
     </div>
 
     <script>
-        function formatText(fieldId, tagOpen, tagClose, placeholder) {
+        function insertGold(fieldId, defaultText) {
+      formatText(fieldId, '<span class="gold-text">', '</span>', defaultText || 'نص باللون الذهبي');
+    }
+
+    function insertLink(fieldId) {
+      var textarea = document.getElementById(fieldId);
+      if (!textarea) return;
+      textarea.focus();
+      var start = textarea.selectionStart;
+      var end = textarea.selectionEnd;
+      var text = textarea.value;
+      var selected = text.substring(start, end);
+      var defaultUrl = 'https://';
+      var url = prompt('أدخل رابط الموقع أو الصفحة (URL):\nمثال: https://alhumam.sa أو https://example.com أو projects.html', defaultUrl);
+      if (!url || url.trim() === '' || url.trim() === 'https://') return;
+      url = url.trim();
+      var linkText = selected ? selected : 'نص الرابط هنا';
+      var isExternal = /^https?:\/\//i.test(url);
+      var targetAttr = isExternal ? ' target="_blank" rel="noopener noreferrer"' : '';
+      var replacement = '<a href="' + url + '"' + targetAttr + ' class="article-link">' + linkText + '</a>';
+      textarea.value = text.substring(0, start) + replacement + text.substring(end);
+      textarea.selectionStart = start;
+      textarea.selectionEnd = start + replacement.length;
+    }
+
+    function formatText(fieldId, tagOpen, tagClose, placeholder) {
             var textarea = document.getElementById(fieldId);
             if (!textarea) return;
             textarea.focus();

@@ -278,7 +278,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_ar_media', '<strong>', '</strong>', 'نص عريض')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_ar_media', '<span class="gold-text">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('content_ar_media', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
                                         <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_ar_media')" title="إدراج رابط تشعبي (Hyperlink)">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
@@ -338,7 +338,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_en_media', '<strong>', '</strong>', 'Bold text')" title="Bold text"><strong>B Bold</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_en_media', '<span class="gold-text">', '</span>', 'Golden accent text')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('content_en_media', 'Golden accent text')" title="Highlight with gold color">⭐ Gold</button>
                                         <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_en_media')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
@@ -480,7 +480,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_ar_proj', '<strong>', '</strong>', 'مواصفة تقنية بارزة')" title="تسميك الخط (Bold)"><strong>B عريض</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_ar_proj', '<span class="gold-text">', '</span>', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('content_ar_proj', 'نص باللون الذهبي')" title="تلوين النص باللون الذهبي">⭐ ذهبي</button>
                                         <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_ar_proj')" title="إدراج رابط تشعبي (Hyperlink)">🔗 رابط</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
@@ -536,7 +536,7 @@ $is_editing = !empty($edit_item);
                                     <div class="toolbar-divider"></div>
                                     <div class="toolbar-group">
                                         <button type="button" class="toolbar-btn" onclick="formatText('content_en_proj', '<strong>', '</strong>', 'Key Spec')" title="Bold text"><strong>B Bold</strong></button>
-                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="formatText('content_en_proj', '<span class="gold-text">', '</span>', 'Golden accent')" title="Highlight with gold color">⭐ Gold</button>
+                                        <button type="button" class="toolbar-btn toolbar-btn--gold" onclick="insertGold('content_en_proj', 'Golden accent')" title="Highlight with gold color">⭐ Gold</button>
                                         <button type="button" class="toolbar-btn toolbar-btn--link" onclick="insertLink('content_en_proj')" title="Insert Hyperlink">🔗 Link</button>
                                     </div>
                                     <div class="toolbar-divider"></div>
@@ -607,6 +607,10 @@ $is_editing = !empty($edit_item);
 
     <!-- Tab, Formatting & Preview Script -->
     <script>
+        function insertGold(fieldId, defaultText) {
+            formatText(fieldId, '<span class="gold-text">', '</span>', defaultText || 'نص باللون الذهبي');
+        }
+
         function formatText(fieldId, tagOpen, tagClose, placeholder) {
             var textarea = document.getElementById(fieldId);
             if (!textarea) return;
